@@ -6,4 +6,5 @@ public:
 	Jeux();
 	Case echiquier[8][8];
 	void initialisation();
+	// test
 };
