@@ -8,3 +8,8 @@ Jeux::Jeux() {
 		}
 	}
 }
+
+void Jeux::initialisation() {
+	// Associer player à piece
+	// Placer piece dans Board
+}
