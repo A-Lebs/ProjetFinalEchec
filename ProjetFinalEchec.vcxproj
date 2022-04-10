@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Case.h" />
+    <ClInclude Include="Joueur.h" />
     <ClInclude Include="Jeux.h" />
     <ClInclude Include="Piece.h" />
     <QtMoc Include="ProjetFinalEchec.h" />
@@ -100,6 +101,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Piece.cpp" />
     <ClCompile Include="ProjetFinalEchec.cpp" />
+    <ClCompile Include="Joueur.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

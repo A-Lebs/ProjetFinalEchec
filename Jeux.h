@@ -1,10 +1,13 @@
 #pragma once
 #include "Case.h"
+#include <memory>
+
 
 class Jeux {
 public:
 	Jeux();
-	Case echiquier[8][8];
+	std::shared_ptr<Case> echiquier[8][8];
 	void initialisation();
 	// test
+	
 };
