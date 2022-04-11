@@ -7,5 +7,5 @@ class Jeux {
 public:
 	Jeux();
 	std::shared_ptr<Case> echiquier[8][8];
-	void initialisation();
+	//void initialisation(Joueur& blanc, Joueur& noir);
 };

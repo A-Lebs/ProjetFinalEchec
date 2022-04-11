@@ -1,4 +1,2 @@
 ﻿  Reading Qt configuration (C:/Qt/6.3.0/msvc2019_64/bin/qmake)
-  Jeux.cpp
-C:\Users\Alexis L\Desktop\Polytechnique\Session_2\echec1015\ProjetFinalEchec\Jeux.cpp(1,1): warning C4828: Le fichier contient un caractère qui débute à l'offset 0x37c et qui est non conforme dans le jeu de caractères source actuel (page de codes 65001).
   ProjetFinalEchec.vcxproj -> C:\Users\Alexis L\Desktop\Polytechnique\Session_2\echec1015\ProjetFinalEchec\x64\Debug\ProjetFinalEchec.exe
