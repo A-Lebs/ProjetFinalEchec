@@ -21,7 +21,7 @@ Piece::Piece(const Jeux& jeux) {
 			}
 		}
 	}
-	
+
 	positionInitialeX += 2;
 	positionInitialeY += 1;
 }

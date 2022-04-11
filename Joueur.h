@@ -1,11 +1,12 @@
 #include "Piece.h"
+#include <vector>
 
 #pragma once
 
 class Joueur {
 public:
 	Joueur();
-	Joueur(const Piece& premiere, const Piece& deuxieme, const Piece& troisieme);
+	void ajouterPiece(Piece piece);
 private:
-	Piece pieces[3];
+	std::vector<Piece> pieces;
 };

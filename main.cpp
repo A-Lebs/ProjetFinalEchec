@@ -7,6 +7,6 @@ int main(int argc, char *argv[])
 {
     Jeux j;
 //    cout << j.echiquier[4][0]->avoirPositionX();
-    Piece piece1(j);
-    piece1.avoirPosition();
+    //Piece piece1(j);
+    //piece1.avoirPosition();
 }
