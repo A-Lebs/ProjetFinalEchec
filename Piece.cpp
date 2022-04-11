@@ -12,13 +12,16 @@ Piece::Piece() {
 
 Piece::Piece(const Jeux& jeux) {
 	for (int i = 0; i < 8; i++) {
-		for (int j = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
 			std::shared_ptr<Case> pos = jeux.echiquier[i][j];
+			std::cout << "i" << i << std::endl;
+			std::cout << "j" << j << std::endl;
 			if (pos->avoirPositionX() == positionInitialeX && pos->avoirPositionY() == positionInitialeY) {
-				position = std::make_shared<Case> (jeux.echiquier[i][j]);
+				position = std::make_shared<Case>(*pos);
 			}
 		}
 	}
+	
 	positionInitialeX += 2;
 	positionInitialeY += 1;
 }
