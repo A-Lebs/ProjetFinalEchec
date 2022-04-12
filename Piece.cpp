@@ -27,3 +27,11 @@ void Piece::avoirPosition() {
 	std::cout << "Position en X: " << position->avoirPositionX() << std::endl;
 	std::cout << "Position en Y: " << position->avoirPositionY() << std::endl;
 }
+
+std::string Piece::avoirCharBlanc() {
+	return characterBlanc;
+}
+
+std::string Piece::avoirCharNoir() {
+	return characterNoir;
+}

@@ -2,14 +2,16 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_ProjetFinalEchec.h"
+#include "Joueur.h"
 
 class ProjetFinalEchec : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    ProjetFinalEchec(QWidget *parent = Q_NULLPTR);
+    ProjetFinalEchec(Joueur joueurUn, Joueur joueurDeux, QWidget *parent = Q_NULLPTR);
 
 private:
     Ui::ProjetFinalEchecClass ui;
+
 };

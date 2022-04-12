@@ -12,7 +12,12 @@ public:
 	static int positionInitialeX;
 	static int positionInitialeY;
 	void avoirPosition();
+	std::string avoirCharBlanc();
+	std::string avoirCharNoir();
 
-private:
+
 	std::shared_ptr<Case> position;
+
+	std::string characterBlanc;
+	std::string characterNoir;
 };
