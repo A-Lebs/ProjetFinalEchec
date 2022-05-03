@@ -1,19 +1,39 @@
+/**
+* TD6 Exceptions, espace de nom, variables de classe
+* \file   Joueur.h
+* \author Alexis LeBlanc et Zakaria Zair
+* \date	21 avril 2022
+* Créé le 9 avril 2022
+*/
+
+#pragma once
+
 #include "Piece.h"
 #include <vector>
 #include <string>
 #include <memory>
 
-#pragma once
+namespace classejeux {
+	class Joueur;
+	class Piece;
+	class Jeux;
+	class Case;
+	class Cavalier;
+	class Roi;
+	class Tour;
+}
 
-class Joueur {
+class classejeux::Joueur {
 public:
 	Joueur(std::string nom);
-	void ajouterPiece(Piece piece);
-	void afficherPositionPiece();
-	std::unique_ptr<Piece> pieceTrouvee(int positionX, int positionY);
-	std::vector<Piece> avoirVectorPiece();
+	void ajouterPiece(std::shared_ptr<Piece> piece);
+	Piece* pieceTrouvee(int positionX, int positionY);
 	std::string avoirNom();
+	void modifierPosition(int nouveauX, int nouveauY, int ancienX, int ancienY);
+	std::vector<std::shared_ptr<Piece>> avoirPieces() { return pieces_; }
+
 private:
 	std::string nom_;
-	std::vector<Piece> pieces;
+	// Question 3
+	std::vector<std::shared_ptr<Piece>> pieces_;
 };

@@ -1,3 +1,15 @@
+/**
+* TD6 Exceptions, espace de nom, variables de classe
+* \file   main.cpp
+* \author Alexis LeBlanc et Zakaria Zair
+* \date	21 avril 2022
+* Créé le 9 avril 2022
+*/
+
+// 1. Namespace. L'un regroupe les classes suivantes: Joueur, Piece, Jeux et Case. L'autre est défini dans ProjetFinalEchec.cpp
+// 2. Exception lancée dans le constructeur du Roi donc dans Roi.cpp. Exception levée dans main.cpp
+// 3. Utilisation d'un vecteur de unique_ptr dans Joueur.h (La mémoire se désalloue automatiquement)
+
 #include <iostream>
 #include "Jeux.h"
 #include "Cavalier.h"
@@ -6,42 +18,44 @@
 #include "Joueur.h"
 #include "Piece.h"
 #include "ProjetFinalEchec.h"
-using namespace std;
+
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    // Création des joueurs
-    Joueur blanc("Alexis");
-    Joueur noir("Zak");
-
+    // Création des joueurs    
+    classejeux::Joueur blanc("Alexis");
+    classejeux::Joueur noir("Zak");
+    
     // Création du jeux
-    Jeux jeux;
+    classejeux::Jeux jeux;
     
     // Ajouter pièces
-    
-    blanc.ajouterPiece(Cavalier(jeux));
-    Piece::positionInitialeX = 0;
-    Piece::positionInitialeY = 0;
-    blanc.ajouterPiece(Tour(jeux));
-    Piece::positionInitialeX = 7;
-    Piece::positionInitialeY = 0;
-    blanc.ajouterPiece(Roi(jeux));
-    Piece::positionInitialeX = 2;
-    Piece::positionInitialeY = 1;
-    noir.ajouterPiece(Piece(jeux));
-    Piece::positionInitialeX = 5;
-    Piece::positionInitialeY = 5;
-    noir.ajouterPiece(Piece(jeux));
-    Piece::positionInitialeX = 3;
-    Piece::positionInitialeY = 7;
-    noir.ajouterPiece(Piece(jeux));
+    //Question 2 
+    try {
+        blanc.ajouterPiece(std::make_shared<classejeux::Cavalier>(classejeux::Cavalier(jeux)));
+        classejeux::Piece::positionInitialeX = 0;
+        classejeux::Piece::positionInitialeY = 0;
+        blanc.ajouterPiece(std::make_shared<classejeux::Tour>(classejeux::Tour(jeux)));
+        classejeux::Piece::positionInitialeX = 7;
+        classejeux::Piece::positionInitialeY = 0;
+        blanc.ajouterPiece(std::make_shared<classejeux::Roi>(classejeux::Roi(jeux)));
+        classejeux::Piece::positionInitialeX = 2;
+        classejeux::Piece::positionInitialeY = 1;
+        noir.ajouterPiece(std::make_shared<classejeux::Cavalier>(classejeux::Cavalier(jeux)));
+        classejeux::Piece::positionInitialeX = 5;
+        classejeux::Piece::positionInitialeY = 5;
+        noir.ajouterPiece(std::make_shared<classejeux::Tour>(classejeux::Tour(jeux)));
+        classejeux::Piece::positionInitialeX = 3;
+        classejeux::Piece::positionInitialeY = 7;
+        noir.ajouterPiece(std::make_shared<classejeux::Roi>(classejeux::Roi(jeux)));
+    }
 
-    blanc.afficherPositionPiece();
-    noir.afficherPositionPiece();
-    
-   
-    ProjetFinalEchec echec(blanc, noir);
+    catch (std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+ 
+    ProjetFinalEchec echec(blanc, noir, jeux);
     echec.show();
 
     return app.exec();
