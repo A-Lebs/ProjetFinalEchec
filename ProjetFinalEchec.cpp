@@ -88,8 +88,17 @@ void ProjetFinalEchec::mousePressEvent(QMouseEvent* event) {
         else {
             for (auto&& caseVal : tourJoueur->pieceTrouvee(caseCliquee->first, caseCliquee->second)->mouvementsValide(jeu, *tourJoueur, *autreJoueur)) {
                 if (caseVal->avoirPositionX() == x && caseVal->avoirPositionY() == y) { // Si position valide == position clic
-
-                    tourJoueur->roiEnEchec(jeu, *autreJoueur);
+                    tourJoueur->modifierPosition(x, y, caseCliquee->first, caseCliquee->second);
+                    if (tourJoueur->roiEnEchec(jeu, *autreJoueur)) {
+                        std::cout << "ALLo" << std::endl;
+                         tourJoueur->modifierPosition(caseCliquee->first, caseCliquee->second, x, y);
+                        caseCliquee.reset();
+                        break;
+                    }
+                    /*for (auto&& piec : tourJoueur->pieceTrouvee(caseCliquee->first, caseCliquee->second)->mouvementsValide(jeu, *tourJoueur, *autreJoueur)) {
+                        std::cout << "X: " << piec->avoirPositionX() << std::endl;
+                        std::cout << "Y: " << piec->avoirPositionY() << std::endl;
+                    }*/
 
                     couleurBoardNormal();
 

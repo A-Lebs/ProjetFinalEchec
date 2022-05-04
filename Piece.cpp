@@ -67,6 +67,10 @@ bool classejeux::Piece::autrePieceEnnemi(std::shared_ptr<Case> cas, Joueur joueu
 		int posX = piece->avoirPosition()->avoirPositionX();
 		int posY = piece->avoirPosition()->avoirPositionY();
 
+		if (posX == cas->avoirPositionX() && posY == cas->avoirPositionY()) {
+			return false;
+		}
+
 		if (position_->avoirPositionY() == posY) {
 			if (position_->avoirPositionX() < posX && cas->avoirPositionX() > posX) { return true; }
 

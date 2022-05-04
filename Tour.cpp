@@ -28,15 +28,17 @@ std::vector<std::shared_ptr<classejeux::Case>> classejeux::Tour::mouvementsValid
 	std::vector<std::shared_ptr<Case>> v;
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
-			if (autrePieceAmis(jeu.echiquier_[i][j], joueur)) { continue; }
 			if (autrePieceEnnemi(jeu.echiquier_[i][j], autreJoueur)) { continue; }
-			if (autreJoueur.pieceTrouvee(i, j) && !autreJoueur.pieceTrouvee(i, j)->estMangeable()) {continue;}
+			if (autrePieceAmis(jeu.echiquier_[i][j], joueur)) { continue; }
+			
 			if (jeu.echiquier_[i][j]->avoirPositionX() == position_->avoirPositionX() || jeu.echiquier_[i][j]->avoirPositionY() == position_->avoirPositionY()) {
 				if (jeu.echiquier_[i][j]->avoirPositionX() != position_->avoirPositionX() || jeu.echiquier_[i][j]->avoirPositionY() != position_->avoirPositionY()) {
 					v.push_back(jeu.avoirCase(i, j));
 				}
 			}
+
 		}
 	}
+	
 	return v;
 }

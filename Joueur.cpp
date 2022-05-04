@@ -56,7 +56,9 @@ std::shared_ptr<classejeux::Case> classejeux::Joueur::avoirPosRoi() {
 
 bool classejeux::Joueur::roiEnEchec(Jeux jeu, Joueur adversaire) {
 	for (auto&& piece : adversaire.avoirPieces()) {
-		for (std::shared_ptr<Case> cas : piece->mouvementsValide(jeu, *this, adversaire)) { 
+		std::cout << "RoiX: " << avoirPosRoi()->avoirPositionX() << "RoiY: " << avoirPosRoi()->avoirPositionY() << std::endl;
+		for (std::shared_ptr<Case> cas : piece->mouvementsValide(jeu, adversaire, * this)) {
+			std::cout << "X: " << cas->avoirPositionX() << "    Y: " << cas->avoirPositionY() << std::endl;
 			if (cas->avoirPositionX() == avoirPosRoi()->avoirPositionX() && cas->avoirPositionY() == avoirPosRoi()->avoirPositionY()) {
 				return true;
 			}

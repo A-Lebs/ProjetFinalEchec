@@ -38,7 +38,6 @@ std::vector<std::shared_ptr<classejeux::Case>> classejeux::Roi::mouvementsValide
 
 			if (autrePieceAmis(jeu.echiquier_[i][j], joueur)) { continue; }
 			if (autrePieceEnnemi(jeu.echiquier_[i][j], autreJoueur)) { continue; }
-			if (autreJoueur.pieceTrouvee(i, j) && !autreJoueur.pieceTrouvee(i, j)->estMangeable()) { continue; }
 			// Aux cotes de la piece
 			if (jeu.echiquier_[i][j]->avoirPositionX() + 1 == position_->avoirPositionX() && jeu.echiquier_[i][j]->avoirPositionY() == position_->avoirPositionY()) { // Gauche de la piece
 				v.push_back(jeu.avoirCase(i, j));
