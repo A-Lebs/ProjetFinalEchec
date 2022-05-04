@@ -31,6 +31,7 @@ public:
 	std::string avoirNom();
 	void modifierPosition(int nouveauX, int nouveauY, int ancienX, int ancienY);
 	std::vector<std::shared_ptr<Piece>> avoirPieces() { return pieces_; }
+	void retirerPiece(Piece* pieceRetire);
 
 private:
 	std::string nom_;

@@ -23,5 +23,44 @@ std::string classejeux::Cavalier::avoirCharBlanc() {
 
 std::vector<std::shared_ptr<classejeux::Case>> classejeux::Cavalier::mouvementsValide(Jeux jeu) {
 	std::vector<std::shared_ptr<Case>> v;
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+
+			// Aux cotes de la piece
+			if (jeu.echiquier_[i][j]->avoirPositionX() + 2  == position_->avoirPositionX()) { // Gauche de la piece
+				if (jeu.echiquier_[i][j]->avoirPositionY() + 1 == position_->avoirPositionY()) {
+					v.push_back(jeu.avoirCase(i, j));
+				}
+				if (jeu.echiquier_[i][j]->avoirPositionY() - 1 == position_->avoirPositionY()) {
+					v.push_back(jeu.avoirCase(i, j));
+				}
+			}
+			if (jeu.echiquier_[i][j]->avoirPositionX() + 1 == position_->avoirPositionX()) { // Gauche de la piece
+				if (jeu.echiquier_[i][j]->avoirPositionY() + 2 == position_->avoirPositionY()) {
+					v.push_back(jeu.avoirCase(i, j));
+				}
+				if (jeu.echiquier_[i][j]->avoirPositionY() - 2 == position_->avoirPositionY()) {
+					v.push_back(jeu.avoirCase(i, j));
+				}
+			}
+			if (jeu.echiquier_[i][j]->avoirPositionX() - 1 == position_->avoirPositionX()) { // Gauche de la piece
+				if (jeu.echiquier_[i][j]->avoirPositionY() + 2 == position_->avoirPositionY()) {
+					v.push_back(jeu.avoirCase(i, j));
+				}
+				if (jeu.echiquier_[i][j]->avoirPositionY() - 2 == position_->avoirPositionY()) {
+					v.push_back(jeu.avoirCase(i, j));
+				}
+			}
+			if (jeu.echiquier_[i][j]->avoirPositionX() - 2 == position_->avoirPositionX()) { // Gauche de la piece
+				if (jeu.echiquier_[i][j]->avoirPositionY() + 1 == position_->avoirPositionY()) {
+					v.push_back(jeu.avoirCase(i, j));
+				}
+				if (jeu.echiquier_[i][j]->avoirPositionY() - 1 == position_->avoirPositionY()) {
+					v.push_back(jeu.avoirCase(i, j));
+				}
+			}
+
+		}
+	}
 	return v;
 }

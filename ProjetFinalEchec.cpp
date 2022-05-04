@@ -69,36 +69,71 @@ ProjetFinalEchec::ProjetFinalEchec(classejeux::Joueur& joueurUn, classejeux::Jou
     setCentralWidget(prinFenetre);
 }
 
+
+
+
 void ProjetFinalEchec::mousePressEvent(QMouseEvent* event) {
     int tailleCaseX = width();
     int tailleCaseY = height();
 
+
     int x = ceil(event->x() / (tailleCaseX / 8)); // numero de la case
     int y = ceil(event->y() / (tailleCaseY / 8));
-    
 
     if (caseCliquee) {
-        
-        arrayLabel[caseCliquee->first][caseCliquee->second]->setText(" ");
-        
-        tourJoueur->modifierPosition(x, y, caseCliquee->first, caseCliquee->second);
-        if (tourJoueur == &j1) {
-            classejeux::Piece* pieceJ1 = j1.pieceTrouvee(x, y);
-            arrayLabel[x][y]->setText(QString::fromStdString(pieceJ1->avoirCharBlanc()));
-            tourJoueur = &j2;
+        if (caseCliquee->first == x && caseCliquee->second == y) {  // Cliquer sur lui meme
+            caseCliquee.reset();
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if ((i + j) % 2 == 0) {
+                        arrayLabel[i][j]->setStyleSheet("QLabel { background-color : gray }");
+                    }
+                    else {
+                        arrayLabel[i][j]->setStyleSheet("QLabel { background-color : white }");
+                    }
+                }
+            }
+        }
+        else {
+            for (auto&& caseVal : tourJoueur->pieceTrouvee(caseCliquee->first, caseCliquee->second)->mouvementsValide(jeu)) {
+                if (caseVal->avoirPositionX() == x && caseVal->avoirPositionY() == y) { // Si position valide == position clic
+
+                    for (int i = 0; i < 8; i++) {
+                        for (int j = 0; j < 8; j++) {
+                            if ((i + j) % 2 == 0) {
+                                arrayLabel[i][j]->setStyleSheet("QLabel { background-color : gray }");
+                            }
+                            else {
+                                arrayLabel[i][j]->setStyleSheet("QLabel { background-color : white }");
+                            }
+                        }
+                    }
+
+                    arrayLabel[caseCliquee->first][caseCliquee->second]->setText(" "); // Met au tireur Texte Vide
+                    
+                    tourJoueur->modifierPosition(x, y, caseCliquee->first, caseCliquee->second); // Modifie position de la piece vers cible
+                    if (tourJoueur == &j1) {
+                        classejeux::Piece* pieceJ1 = j1.pieceTrouvee(x, y);
+                        arrayLabel[x][y]->setText(QString::fromStdString(pieceJ1->avoirCharBlanc()));
+                        tourJoueur = &j2;
+                    }
+                    else if (tourJoueur == &j2) {
+                        classejeux::Piece* pieceJ2 = j2.pieceTrouvee(x, y);
+                        arrayLabel[x][y]->setText(QString::fromStdString(pieceJ2->avoirCharNoir()));
+                        tourJoueur = &j1;
+                    }
+                    caseCliquee.reset();
+                }
+            }
         }
 
-        else if (tourJoueur == &j2) {
-            classejeux::Piece* pieceJ2 = j2.pieceTrouvee(x, y);
-            arrayLabel[x][y]->setText(QString::fromStdString(pieceJ2->avoirCharNoir()));
-            tourJoueur = &j1;
-        }
-        caseCliquee.reset();
     }
-
     else {
         if (tourJoueur->pieceTrouvee(x, y)) {
             caseCliquee = { x, y };
+            for (auto caseVal : tourJoueur->pieceTrouvee(caseCliquee->first, caseCliquee->second)->mouvementsValide(jeu)) {
+                arrayLabel[caseVal->avoirPositionX()][caseVal->avoirPositionY()]->setStyleSheet("QLabel { background-color: yellow}");
+            }
         }
     }
                 

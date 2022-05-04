@@ -20,6 +20,7 @@ class ProjetFinalEchec : public QMainWindow
     Q_OBJECT
 
 public:
+
     ProjetFinalEchec(classejeux::Joueur& joueurUn, classejeux::Joueur& joueurDeux, classejeux::Jeux jeuEchec, QWidget *parent = Q_NULLPTR);
     virtual void mousePressEvent(QMouseEvent* event) override;
 

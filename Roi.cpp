@@ -31,6 +31,38 @@ std::string classejeux::Roi::avoirCharBlanc() {
 
 std::vector<std::shared_ptr<classejeux::Case>> classejeux::Roi::mouvementsValide(Jeux jeu) {
 	std::vector<std::shared_ptr<Case>> v;
-	v.push_back(jeu.avoirCase(1, 0));
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+
+			// Aux cotes de la piece
+			if (jeu.echiquier_[i][j]->avoirPositionX() + 1 == position_->avoirPositionX() && jeu.echiquier_[i][j]->avoirPositionY() == position_->avoirPositionY()) { // Gauche de la piece
+				v.push_back(jeu.avoirCase(i, j));
+			}
+			if (jeu.echiquier_[i][j]->avoirPositionX() - 1 == position_->avoirPositionX() && jeu.echiquier_[i][j]->avoirPositionY() == position_->avoirPositionY()) { // Droite
+				v.push_back(jeu.avoirCase(i, j));
+			}
+			if (jeu.echiquier_[i][j]->avoirPositionY() + 1 == position_->avoirPositionY() && jeu.echiquier_[i][j]->avoirPositionX() == position_->avoirPositionX()) { // Bas
+				v.push_back(jeu.avoirCase(i, j));
+			}
+			if (jeu.echiquier_[i][j]->avoirPositionY() - 1 == position_->avoirPositionY() && jeu.echiquier_[i][j]->avoirPositionX() == position_->avoirPositionX()) { // Haut
+				v.push_back(jeu.avoirCase(i, j));
+			}
+
+			// Aux diagonales de la piece
+			if (jeu.echiquier_[i][j]->avoirPositionX() + 1 == position_->avoirPositionX() && jeu.echiquier_[i][j]->avoirPositionY() + 1 == position_->avoirPositionY()) { // Gauche et bas
+				v.push_back(jeu.avoirCase(i, j));
+			}
+			if (jeu.echiquier_[i][j]->avoirPositionX() + 1 == position_->avoirPositionX() && jeu.echiquier_[i][j]->avoirPositionY() - 1 == position_->avoirPositionY()) { // Gauche et haut
+				v.push_back(jeu.avoirCase(i, j));
+			}
+			if (jeu.echiquier_[i][j]->avoirPositionX() - 1 == position_->avoirPositionX() && jeu.echiquier_[i][j]->avoirPositionY() + 1 == position_->avoirPositionY()) { // Droite et bas
+				v.push_back(jeu.avoirCase(i, j));
+			}
+			if (jeu.echiquier_[i][j]->avoirPositionX() - 1 == position_->avoirPositionX() && jeu.echiquier_[i][j]->avoirPositionY() - 1 == position_->avoirPositionY()) { // Droite et haut
+				v.push_back(jeu.avoirCase(i, j));
+			}
+
+		}
+	}
 	return v;
 }

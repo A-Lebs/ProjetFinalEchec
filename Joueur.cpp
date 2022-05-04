@@ -40,3 +40,12 @@ void classejeux::Joueur::modifierPosition(int nouveauX, int nouveauY, int ancien
 	}
 }
 
+void classejeux::Joueur::retirerPiece(Piece* pieceRetire) {
+	for (auto&& p : pieces_) {
+		if (p.get()->avoirPosition()->avoirPositionX() == pieceRetire->avoirPosition()->avoirPositionX()
+			&& p.get()->avoirPosition()->avoirPositionY() == pieceRetire->avoirPosition()->avoirPositionY()) {
+			pieces_.erase(find(pieces_.begin(), pieces_.end(), p));
+		}
+	}
+}
+
