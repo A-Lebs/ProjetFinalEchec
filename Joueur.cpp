@@ -54,15 +54,21 @@ std::shared_ptr<classejeux::Case> classejeux::Joueur::avoirPosRoi() {
 	return nullptr;
 }
 
-bool classejeux::Joueur::roiEnEchec(Jeux jeu, Joueur adversaire) {
-	for (auto&& piece : adversaire.avoirPieces()) {
+bool classejeux::Joueur::roiEnEchec(Jeux jeu, Joueur adversaire, int x, int y) {
+	if (adversaire.pieceTrouvee(x, y)) {
+		adversaire.retirerPiece(adversaire.pieceTrouvee(x, y));
+	}
+	for (auto&& piece : adversaire.avoirPieces()) {	// Chaque piece de l'adversaire
 		std::cout << "RoiX: " << avoirPosRoi()->avoirPositionX() << "RoiY: " << avoirPosRoi()->avoirPositionY() << std::endl;
-		for (std::shared_ptr<Case> cas : piece->mouvementsValide(jeu, adversaire, * this)) {
+		for (std::shared_ptr<Case> cas : piece->mouvementsValide(jeu, adversaire, *this)) {
 			std::cout << "X: " << cas->avoirPositionX() << "    Y: " << cas->avoirPositionY() << std::endl;
 			if (cas->avoirPositionX() == avoirPosRoi()->avoirPositionX() && cas->avoirPositionY() == avoirPosRoi()->avoirPositionY()) {
 				return true;
 			}
 		}
+	}
+	if (!adversaire.pieceTrouvee(x, y)) {
+		adversaire.ajouterPiece(adversaire.pieceTrouvee(x, y));
 	}
 	return false;
 }

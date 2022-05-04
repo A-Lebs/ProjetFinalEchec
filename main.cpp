@@ -33,20 +33,22 @@ int main(int argc, char *argv[])
     // Ajouter pièces
     //Question 2 
     try {
+        classejeux::Piece::positionInitialeX = 2;
+        classejeux::Piece::positionInitialeY = 0;
         blanc.ajouterPiece(std::make_shared<classejeux::Cavalier>(classejeux::Cavalier(jeux)));
-        classejeux::Piece::positionInitialeX = 0;
+        classejeux::Piece::positionInitialeX = 4;
         classejeux::Piece::positionInitialeY = 0;
         blanc.ajouterPiece(std::make_shared<classejeux::Tour>(classejeux::Tour(jeux)));
-        classejeux::Piece::positionInitialeX = 7;
+        classejeux::Piece::positionInitialeX = 5;
         classejeux::Piece::positionInitialeY = 0;
         blanc.ajouterPiece(std::make_shared<classejeux::Roi>(classejeux::Roi(jeux)));
-        classejeux::Piece::positionInitialeX = 2;
-        classejeux::Piece::positionInitialeY = 1;
-        noir.ajouterPiece(std::make_shared<classejeux::Cavalier>(classejeux::Cavalier(jeux)));
         classejeux::Piece::positionInitialeX = 5;
-        classejeux::Piece::positionInitialeY = 5;
-        noir.ajouterPiece(std::make_shared<classejeux::Tour>(classejeux::Tour(jeux)));
+        classejeux::Piece::positionInitialeY = 7;
+        noir.ajouterPiece(std::make_shared<classejeux::Cavalier>(classejeux::Cavalier(jeux)));
         classejeux::Piece::positionInitialeX = 3;
+        classejeux::Piece::positionInitialeY = 7;
+        noir.ajouterPiece(std::make_shared<classejeux::Tour>(classejeux::Tour(jeux)));
+        classejeux::Piece::positionInitialeX = 2;
         classejeux::Piece::positionInitialeY = 7;
         noir.ajouterPiece(std::make_shared<classejeux::Roi>(classejeux::Roi(jeux)));
     }

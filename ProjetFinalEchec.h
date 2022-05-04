@@ -24,6 +24,7 @@ public:
     ProjetFinalEchec(classejeux::Joueur& joueurUn, classejeux::Joueur& joueurDeux, classejeux::Jeux jeuEchec, QWidget *parent = Q_NULLPTR);
     virtual void mousePressEvent(QMouseEvent* event) override;
     void couleurBoardNormal();
+   /* void couleurBoardEchec();*/
 
 private:
     classejeux::Joueur& j1;
