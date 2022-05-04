@@ -33,15 +33,19 @@ public:
 	static int positionInitialeX;
 	static int positionInitialeY;
 	std::shared_ptr<Case> avoirPosition();
-
+	bool estMangeable() { return mangeable; }
 	// virtual void deplacer() = 0; à redefinir dans les classes enfants
 	virtual std::string avoirCharNoir() = 0;
 	virtual std::string avoirCharBlanc() = 0;
-	virtual std::vector<std::shared_ptr<Case>> mouvementsValide(Jeux jeu) = 0;
+	virtual std::vector<std::shared_ptr<Case>> mouvementsValide(Jeux jeu, Joueur& joueur, Joueur& autreJoueur) = 0;
+	bool autrePieceAmis(std::shared_ptr<Case> cas, Joueur joueur);
+	bool autrePieceEnnemi(std::shared_ptr<Case> cas, Joueur joueur);
 	std::shared_ptr<Case> position_;
 	void afficherPos();
+	
 
 protected:
 	std::string characterBlanc_;
 	std::string characterNoir_;
+	bool mangeable;
 };

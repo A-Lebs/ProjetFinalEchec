@@ -7,10 +7,12 @@
 */
 
 #include "Cavalier.h"
+#include "Joueur.h"
 
 classejeux::Cavalier::Cavalier(const classejeux::Jeux& jeux) : Piece(jeux) {
 	characterBlanc_ = "♘";
 	characterNoir_ = "♞";
+	mangeable = true;
 }
 
 std::string classejeux::Cavalier::avoirCharNoir() {
@@ -21,11 +23,13 @@ std::string classejeux::Cavalier::avoirCharBlanc() {
 	return characterBlanc_;
 }
 
-std::vector<std::shared_ptr<classejeux::Case>> classejeux::Cavalier::mouvementsValide(Jeux jeu) {
+std::vector<std::shared_ptr<classejeux::Case>> classejeux::Cavalier::mouvementsValide(Jeux jeu, Joueur& joueur, Joueur& autreJoueur) {
 	std::vector<std::shared_ptr<Case>> v;
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
-
+			if (autrePieceAmis(jeu.echiquier_[i][j], joueur)) { continue; }
+			if (autrePieceEnnemi(jeu.echiquier_[i][j], autreJoueur)) { continue; }
+			if (autreJoueur.pieceTrouvee(i, j) && !autreJoueur.pieceTrouvee(i, j)->estMangeable()) { continue; }
 			// Aux cotes de la piece
 			if (jeu.echiquier_[i][j]->avoirPositionX() + 2  == position_->avoirPositionX()) { // Gauche de la piece
 				if (jeu.echiquier_[i][j]->avoirPositionY() + 1 == position_->avoirPositionY()) {

@@ -7,7 +7,9 @@
 */
 
 #include <iostream>
+#include <algorithm>
 #include "Piece.h"
+#include "Joueur.h"
 #include "Jeux.h"
 #include "Cavalier.h"
 
@@ -37,4 +39,45 @@ void classejeux::Piece::afficherPos() {
 	std::cout << "Y: " << position_->avoirPositionY() << std::endl;
 }
 
+bool classejeux::Piece::autrePieceAmis(std::shared_ptr<Case> cas, Joueur joueur) {
+	for (auto&& piece : joueur.avoirPieces()) {
+		int posX = piece->avoirPosition()->avoirPositionX();
+		int posY = piece->avoirPosition()->avoirPositionY();
+		if (posX == cas->avoirPositionX() && posY == cas->avoirPositionY()) {
+			return true; 
+		}
 
+		if (position_->avoirPositionY() == posY) {
+			if (position_->avoirPositionX() < posX && cas->avoirPositionX() > posX) { return true; }
+
+			else if (position_->avoirPositionX() > posX && cas->avoirPositionX() < posX) { return true; }
+		}
+		
+		if (position_->avoirPositionX() == posX) {
+			if (position_->avoirPositionY() < posY && cas->avoirPositionY() > posY) { return true; }
+
+			else if (position_->avoirPositionY() > posY && cas->avoirPositionY() < posY) { return true; }
+		}
+	}
+	return false;
+}
+
+bool classejeux::Piece::autrePieceEnnemi(std::shared_ptr<Case> cas, Joueur joueur) {
+	for (auto&& piece : joueur.avoirPieces()) {
+		int posX = piece->avoirPosition()->avoirPositionX();
+		int posY = piece->avoirPosition()->avoirPositionY();
+
+		if (position_->avoirPositionY() == posY) {
+			if (position_->avoirPositionX() < posX && cas->avoirPositionX() > posX) { return true; }
+
+			else if (position_->avoirPositionX() > posX && cas->avoirPositionX() < posX) { return true; }
+		}
+
+		if (position_->avoirPositionX() == posX) {
+			if (position_->avoirPositionY() < posY && cas->avoirPositionY() > posY) { return true; }
+
+			else if (position_->avoirPositionY() > posY && cas->avoirPositionY() < posY) { return true; }
+		}
+	}
+	return false;
+}

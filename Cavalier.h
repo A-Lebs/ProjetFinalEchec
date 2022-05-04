@@ -26,7 +26,7 @@ public:
 	Cavalier(const classejeux::Jeux& jeux);
 	virtual std::string avoirCharNoir() override;
 	virtual std::string avoirCharBlanc() override;
-	virtual std::vector<std::shared_ptr<Case>> mouvementsValide(Jeux jeu) override;
+	virtual std::vector<std::shared_ptr<Case>> mouvementsValide(Jeux jeu, Joueur& joueur, Joueur& autreJoueur) override;
 	//virtual void deplacer();
 
 private:

@@ -16,7 +16,7 @@ public:
 	Tour(const classejeux::Jeux jeux);
 	virtual std::string avoirCharNoir();
 	virtual std::string avoirCharBlanc();
-	virtual std::vector<std::shared_ptr<Case>> mouvementsValide(Jeux jeu) override;
+	virtual std::vector<std::shared_ptr<Case>> mouvementsValide(Jeux jeu, Joueur& joueur, Joueur& autreJoueur) override;
 private:
 	std::string characterBlanc_;
 	std::string characterNoir_;

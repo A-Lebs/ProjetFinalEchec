@@ -6,6 +6,7 @@
 * Créé le 9 avril 2022
 */
 
+#include "Joueur.h"
 #include "Roi.h"
 #include <stdexcept>
 
@@ -18,6 +19,7 @@ classejeux::Roi::Roi(const classejeux::Jeux jeux) : Piece(jeux) {
 
 	characterBlanc_ = "♔";
 	characterNoir_ = "♚";
+	mangeable = false;
 	compteur_++;
 }
 
@@ -29,11 +31,14 @@ std::string classejeux::Roi::avoirCharBlanc() {
 	return characterBlanc_;
 }
 
-std::vector<std::shared_ptr<classejeux::Case>> classejeux::Roi::mouvementsValide(Jeux jeu) {
+std::vector<std::shared_ptr<classejeux::Case>> classejeux::Roi::mouvementsValide(Jeux jeu, Joueur& joueur, Joueur& autreJoueur) {
 	std::vector<std::shared_ptr<Case>> v;
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 
+			if (autrePieceAmis(jeu.echiquier_[i][j], joueur)) { continue; }
+			if (autrePieceEnnemi(jeu.echiquier_[i][j], autreJoueur)) { continue; }
+			if (autreJoueur.pieceTrouvee(i, j) && !autreJoueur.pieceTrouvee(i, j)->estMangeable()) { continue; }
 			// Aux cotes de la piece
 			if (jeu.echiquier_[i][j]->avoirPositionX() + 1 == position_->avoirPositionX() && jeu.echiquier_[i][j]->avoirPositionY() == position_->avoirPositionY()) { // Gauche de la piece
 				v.push_back(jeu.avoirCase(i, j));

@@ -1,2 +1,0 @@
-C:\Users\Zakaria\source\repos\ProjetFinalEchec\x64\Debug\ProjetFinalEchec.exe
-C:\Users\Alexis L\Desktop\Polytechnique\Session_2\echec1015\ProjetFinalEchec\x64\Debug\ProjetFinalEchec.exe

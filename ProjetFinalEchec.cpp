@@ -27,7 +27,7 @@ namespace interfacegraphique {
 namespace ig = interfacegraphique;
 
 ProjetFinalEchec::ProjetFinalEchec(classejeux::Joueur& joueurUn, classejeux::Joueur& joueurDeux, classejeux::Jeux jeuEchec, QWidget* parent)
-    : QMainWindow(parent), j1(joueurUn), j2(joueurDeux), tourJoueur(&j1), jeu(jeuEchec)
+    : QMainWindow(parent), j1(joueurUn), j2(joueurDeux), tourJoueur(&j1), autreJoueur(&j2), jeu(jeuEchec)
 {
     QWidget* prinFenetre = new QWidget;
     prinFenetre->setFixedSize(ig::tailleFenetre, ig::tailleFenetre);
@@ -95,7 +95,7 @@ void ProjetFinalEchec::mousePressEvent(QMouseEvent* event) {
             }
         }
         else {
-            for (auto&& caseVal : tourJoueur->pieceTrouvee(caseCliquee->first, caseCliquee->second)->mouvementsValide(jeu)) {
+            for (auto&& caseVal : tourJoueur->pieceTrouvee(caseCliquee->first, caseCliquee->second)->mouvementsValide(jeu, *tourJoueur, *autreJoueur)) {
                 if (caseVal->avoirPositionX() == x && caseVal->avoirPositionY() == y) { // Si position valide == position clic
 
                     for (int i = 0; i < 8; i++) {
@@ -116,11 +116,13 @@ void ProjetFinalEchec::mousePressEvent(QMouseEvent* event) {
                         classejeux::Piece* pieceJ1 = j1.pieceTrouvee(x, y);
                         arrayLabel[x][y]->setText(QString::fromStdString(pieceJ1->avoirCharBlanc()));
                         tourJoueur = &j2;
+                        autreJoueur = &j1;
                     }
                     else if (tourJoueur == &j2) {
                         classejeux::Piece* pieceJ2 = j2.pieceTrouvee(x, y);
                         arrayLabel[x][y]->setText(QString::fromStdString(pieceJ2->avoirCharNoir()));
                         tourJoueur = &j1;
+                        autreJoueur = &j2;
                     }
                     caseCliquee.reset();
                 }
@@ -131,8 +133,9 @@ void ProjetFinalEchec::mousePressEvent(QMouseEvent* event) {
     else {
         if (tourJoueur->pieceTrouvee(x, y)) {
             caseCliquee = { x, y };
-            for (auto caseVal : tourJoueur->pieceTrouvee(caseCliquee->first, caseCliquee->second)->mouvementsValide(jeu)) {
+            for (auto caseVal : tourJoueur->pieceTrouvee(caseCliquee->first, caseCliquee->second)->mouvementsValide(jeu, *tourJoueur, *autreJoueur)) {
                 arrayLabel[caseVal->avoirPositionX()][caseVal->avoirPositionY()]->setStyleSheet("QLabel { background-color: yellow}");
+                arrayLabel[caseVal->avoirPositionX()][caseVal->avoirPositionY()]->setStyleSheet("QLabel { border: 3px solid yellow;}");
             }
         }
     }

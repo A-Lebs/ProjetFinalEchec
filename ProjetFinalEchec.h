@@ -30,6 +30,7 @@ private:
     classejeux::Jeux jeu;
 
     classejeux::Joueur* tourJoueur;
+    classejeux::Joueur* autreJoueur;
     std::optional<std::pair<int, int>> caseCliquee;
     QLabel* arrayLabel[8][8];
     Ui::ProjetFinalEchecClass ui;
