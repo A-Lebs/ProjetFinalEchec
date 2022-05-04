@@ -22,10 +22,10 @@ void classejeux::Joueur::ajouterPiece(std::shared_ptr<Piece> piece) {
  	pieces_.push_back(move(piece));
 }
 
-classejeux::Piece* classejeux::Joueur::pieceTrouvee(int positionX, int positionY) {
+std::shared_ptr<classejeux::Piece> classejeux::Joueur::pieceTrouvee(int positionX, int positionY) {
 	for (auto& piece : pieces_) {
 		if (piece->position_->avoirPositionX() == positionX && piece->position_->avoirPositionY() == positionY) {
-			return piece.get();
+			return piece;
 		}
 	}
 	return nullptr;
@@ -40,12 +40,29 @@ void classejeux::Joueur::modifierPosition(int nouveauX, int nouveauY, int ancien
 	}
 }
 
-void classejeux::Joueur::retirerPiece(Piece* pieceRetire) {
+void classejeux::Joueur::retirerPiece(std::shared_ptr<Piece> pieceRetire) {
+	auto it = std::find(pieces_.begin(), pieces_.end(), pieceRetire);
+	pieces_.erase(it);
+}
+
+std::shared_ptr<classejeux::Case> classejeux::Joueur::avoirPosRoi() {
 	for (auto&& p : pieces_) {
-		if (p.get()->avoirPosition()->avoirPositionX() == pieceRetire->avoirPosition()->avoirPositionX()
-			&& p.get()->avoirPosition()->avoirPositionY() == pieceRetire->avoirPosition()->avoirPositionY()) {
-			pieces_.erase(find(pieces_.begin(), pieces_.end(), p));
+		if (!p->estMangeable()) {
+			return p->position_;
 		}
 	}
+	return nullptr;
 }
+
+bool classejeux::Joueur::roiEnEchec(Jeux jeu, Joueur adversaire) {
+	for (auto&& piece : adversaire.avoirPieces()) {
+		for (std::shared_ptr<Case> cas : piece->mouvementsValide(jeu, *this, adversaire)) { 
+			if (cas->avoirPositionX() == avoirPosRoi()->avoirPositionX() && cas->avoirPositionY() == avoirPosRoi()->avoirPositionY()) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 

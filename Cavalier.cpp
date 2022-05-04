@@ -28,8 +28,6 @@ std::vector<std::shared_ptr<classejeux::Case>> classejeux::Cavalier::mouvementsV
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			if (autrePieceAmis(jeu.echiquier_[i][j], joueur)) { continue; }
-			if (autrePieceEnnemi(jeu.echiquier_[i][j], autreJoueur)) { continue; }
-			if (autreJoueur.pieceTrouvee(i, j) && !autreJoueur.pieceTrouvee(i, j)->estMangeable()) { continue; }
 			// Aux cotes de la piece
 			if (jeu.echiquier_[i][j]->avoirPositionX() + 2  == position_->avoirPositionX()) { // Gauche de la piece
 				if (jeu.echiquier_[i][j]->avoirPositionY() + 1 == position_->avoirPositionY()) {

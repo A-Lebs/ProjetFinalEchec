@@ -27,11 +27,13 @@ class classejeux::Joueur {
 public:
 	Joueur(std::string nom);
 	void ajouterPiece(std::shared_ptr<Piece> piece);
-	Piece* pieceTrouvee(int positionX, int positionY);
+	std::shared_ptr<Piece> pieceTrouvee(int positionX, int positionY);
 	std::string avoirNom();
 	void modifierPosition(int nouveauX, int nouveauY, int ancienX, int ancienY);
 	std::vector<std::shared_ptr<Piece>> avoirPieces() { return pieces_; }
-	void retirerPiece(Piece* pieceRetire);
+	void retirerPiece(std::shared_ptr<Piece> pieceRetire);
+	bool roiEnEchec(Jeux jeu, Joueur adversaire);
+	std::shared_ptr<Case> avoirPosRoi();
 
 private:
 	std::string nom_;
