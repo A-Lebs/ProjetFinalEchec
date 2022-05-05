@@ -150,6 +150,7 @@ void ProjetFinalEchec::option3() {
 void ProjetFinalEchec::miseEnJeu() {
 
     option();
+    jeuParti = true;
 
     QWidget* prinFenetre = new QWidget;
     prinFenetre->setFixedSize(ig::tailleFenetre, ig::tailleFenetre);
@@ -210,10 +211,7 @@ void ProjetFinalEchec::mousePressEvent(QMouseEvent* event) {
                     tourJoueur->modifierPosition(x, y, caseCliquee->first, caseCliquee->second);
                     if (tourJoueur->roiEnEchec(jeu, *autreJoueur, x, y)) {
                         std::cout << "ECHEC !!!" << std::endl;
-                        
-                        if (tourJoueur->echecMat(jeu, *tourJoueur, *autreJoueur)) {
-                            std::cout << "GAME OVER" << std::endl;
-                        }
+                        // fonction echec et mat
                         tourJoueur->modifierPosition(caseCliquee->first, caseCliquee->second, x, y);
                         couleurBoardNormal();
                         couleurBoardEchec();
@@ -280,10 +278,28 @@ void ProjetFinalEchec::couleurBoardEchec() {
         for (int j = 0; j < 8; j++) {
             auto k = tourJoueur->avoirPosRoi();
             if (jeu.echiquier_[i][j]->avoirPositionX() == k->avoirPositionX() && jeu.echiquier_[i][j]->avoirPositionY() == k->avoirPositionY()) {
-                arrayLabel[i][j]->setStyleSheet("QLabel { background-color: red}");
-                arrayLabel[i][j]->setStyleSheet("QLabel { border: 7px solid red;}");
+                arrayLabel[i][j]->setStyleSheet("QLabel { background-color: red; border: 7px solid rgb(150, 10, 30);}");
                 break;
             }
         }
     }
+}
+
+void ProjetFinalEchec::mouseReleaseEvent(QMouseEvent* event) {
+    int tailleCaseX = width();
+    int tailleCaseY = height();
+
+    int x = ceil(event->x() / (tailleCaseX / 8)); // numero de la case
+    int y = ceil(event->y() / (tailleCaseY / 8));
+
+    if (!caseCliquee && jeuParti) {
+        if (tourJoueur->echecMat(jeu, *autreJoueur)) {  // Joueur en début de tour (le tour vient de changer)
+            std::cout << "GAME OVER" << std::endl;
+        }
+    }
+
+};
+
+void ProjetFinalEchec::stopJeu() {
+
 }

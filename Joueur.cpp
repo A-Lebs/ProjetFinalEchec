@@ -54,7 +54,7 @@ std::shared_ptr<classejeux::Case> classejeux::Joueur::avoirPosRoi() {
 	return nullptr;
 }
 
-bool classejeux::Joueur::roiEnEchec(Jeux jeu, Joueur adversaire, int x, int y) {
+bool classejeux::Joueur::roiEnEchec(Jeux jeu, Joueur adversaire, int x, int y) { // Roi en echec : 
 	if (adversaire.pieceTrouvee(x, y)) {
 		adversaire.retirerPiece(adversaire.pieceTrouvee(x, y));
 	}
@@ -65,25 +65,32 @@ bool classejeux::Joueur::roiEnEchec(Jeux jeu, Joueur adversaire, int x, int y) {
 			}
 		}
 	}
-	if (!adversaire.pieceTrouvee(x, y)) {
-		adversaire.ajouterPiece(adversaire.pieceTrouvee(x, y));
-	}
 	return false;
 }
 
-bool classejeux::Joueur::echecMat(Jeux jeu, Joueur joueurEnEchec, Joueur adversaire) {
-	for (auto&& i : joueurEnEchec.avoirPieces()) {
-		for (auto&& j : i->mouvementsValide(jeu, joueurEnEchec, adversaire)) {
+bool classejeux::Joueur::echecMat(Jeux jeu, Joueur adversaire) {
+	int xp = 0;
+	int yp = 0;
+	for (auto&& i : avoirPieces()) {
+		std::cout << "Piece ###" << std::endl;
+		for (auto&& j : i->mouvementsValide(jeu, *this, adversaire)) {
 			std::cout << "X: " << j->avoirPositionX() << std::endl;
 			std::cout << "Y: " << j->avoirPositionY() << std::endl;
 			std::cout << std::endl;
+			xp = i->avoirPosition()->avoirPositionX();
+			yp = i->avoirPosition()->avoirPositionY();
+			i->avoirPosition()->changerX(j->avoirPositionX());
+			i->avoirPosition()->changerY(j->avoirPositionY());
 			if (!roiEnEchec(jeu, adversaire, j->avoirPositionX(), j->avoirPositionY())) {
-				std::cout << "False" << std::endl;
+				i->avoirPosition()->changerX(xp);
+				i->avoirPosition()->changerY(yp);
 				return false;
 			}
-			
+			i->avoirPosition()->changerX(xp);
+			i->avoirPosition()->changerY(yp);
 			
 		}
+
 	}
 	return true;
 }
