@@ -14,6 +14,10 @@
 #include <vector>
 #include "ui_ProjetFinalEchec.h"
 #include "Joueur.h"
+#include "Piece.h"
+#include "Cavalier.h"
+#include "Roi.h"
+#include "Tour.h"
 
 class ProjetFinalEchec : public QMainWindow
 {
@@ -23,8 +27,24 @@ public:
 
     ProjetFinalEchec(classejeux::Joueur& joueurUn, classejeux::Joueur& joueurDeux, classejeux::Jeux jeuEchec, QWidget *parent = Q_NULLPTR);
     virtual void mousePressEvent(QMouseEvent* event) override;
+
     void couleurBoardNormal();
-   /* void couleurBoardEchec();*/
+    void couleurBoardEchec();
+
+    void miseEnMenu();
+
+    void option1();
+    void option2();
+    void option3();
+    void option();
+
+private slots:
+    void miseEnJeu();
+
+    void changeOption1();
+    void changeOption2();
+    void changeOption3();
+    
 
 private:
     classejeux::Joueur& j1;
@@ -35,5 +55,6 @@ private:
     classejeux::Joueur* autreJoueur;
     std::optional<std::pair<int, int>> caseCliquee;
     QLabel* arrayLabel[8][8];
+    int optionCompteur = 0;
     Ui::ProjetFinalEchecClass ui;
 };

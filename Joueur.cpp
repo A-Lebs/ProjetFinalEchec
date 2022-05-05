@@ -59,9 +59,9 @@ bool classejeux::Joueur::roiEnEchec(Jeux jeu, Joueur adversaire, int x, int y) {
 		adversaire.retirerPiece(adversaire.pieceTrouvee(x, y));
 	}
 	for (auto&& piece : adversaire.avoirPieces()) {	// Chaque piece de l'adversaire
-		std::cout << "RoiX: " << avoirPosRoi()->avoirPositionX() << "RoiY: " << avoirPosRoi()->avoirPositionY() << std::endl;
+		// std::cout << "RoiX: " << avoirPosRoi()->avoirPositionX() << "RoiY: " << avoirPosRoi()->avoirPositionY() << std::endl;
 		for (std::shared_ptr<Case> cas : piece->mouvementsValide(jeu, adversaire, *this)) {
-			std::cout << "X: " << cas->avoirPositionX() << "    Y: " << cas->avoirPositionY() << std::endl;
+			// std::cout << "X: " << cas->avoirPositionX() << "    Y: " << cas->avoirPositionY() << std::endl;
 			if (cas->avoirPositionX() == avoirPosRoi()->avoirPositionX() && cas->avoirPositionY() == avoirPosRoi()->avoirPositionY()) {
 				return true;
 			}
