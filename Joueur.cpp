@@ -59,9 +59,7 @@ bool classejeux::Joueur::roiEnEchec(Jeux jeu, Joueur adversaire, int x, int y) {
 		adversaire.retirerPiece(adversaire.pieceTrouvee(x, y));
 	}
 	for (auto&& piece : adversaire.avoirPieces()) {	// Chaque piece de l'adversaire
-		// std::cout << "RoiX: " << avoirPosRoi()->avoirPositionX() << "RoiY: " << avoirPosRoi()->avoirPositionY() << std::endl;
 		for (std::shared_ptr<Case> cas : piece->mouvementsValide(jeu, adversaire, *this)) {
-			// std::cout << "X: " << cas->avoirPositionX() << "    Y: " << cas->avoirPositionY() << std::endl;
 			if (cas->avoirPositionX() == avoirPosRoi()->avoirPositionX() && cas->avoirPositionY() == avoirPosRoi()->avoirPositionY()) {
 				return true;
 			}
@@ -73,4 +71,19 @@ bool classejeux::Joueur::roiEnEchec(Jeux jeu, Joueur adversaire, int x, int y) {
 	return false;
 }
 
-
+bool classejeux::Joueur::echecMat(Jeux jeu, Joueur joueurEnEchec, Joueur adversaire) {
+	for (auto&& i : joueurEnEchec.avoirPieces()) {
+		for (auto&& j : i->mouvementsValide(jeu, joueurEnEchec, adversaire)) {
+			std::cout << "X: " << j->avoirPositionX() << std::endl;
+			std::cout << "Y: " << j->avoirPositionY() << std::endl;
+			std::cout << std::endl;
+			if (!roiEnEchec(jeu, adversaire, j->avoirPositionX(), j->avoirPositionY())) {
+				std::cout << "False" << std::endl;
+				return false;
+			}
+			
+			
+		}
+	}
+	return true;
+}

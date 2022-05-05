@@ -33,6 +33,7 @@ public:
 	std::vector<std::shared_ptr<Piece>> avoirPieces() { return pieces_; }
 	void retirerPiece(std::shared_ptr<Piece> pieceRetire);
 	bool roiEnEchec(Jeux jeu, Joueur adversaire, int x, int y);
+	bool echecMat(Jeux jeu, Joueur adversaire, Joueur joueurEnEchec);
 	std::shared_ptr<Case> avoirPosRoi();
 
 private:

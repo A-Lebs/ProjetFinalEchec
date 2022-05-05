@@ -87,20 +87,20 @@ void ProjetFinalEchec::changeOption3() {
 void ProjetFinalEchec::option1() {
 
 
-    classejeux::Piece::positionInitialeX = 2;
-    classejeux::Piece::positionInitialeY = 0;
+    classejeux::Piece::positionInitialeX = 6;
+    classejeux::Piece::positionInitialeY = 7;
     j1.ajouterPiece(std::make_shared<classejeux::Cavalier>(classejeux::Cavalier(jeu)));
-    classejeux::Piece::positionInitialeX = 4;
-    classejeux::Piece::positionInitialeY = 0;
+    classejeux::Piece::positionInitialeX = 7;
+    classejeux::Piece::positionInitialeY = 7;
     j1.ajouterPiece(std::make_shared<classejeux::Tour>(classejeux::Tour(jeu)));
-    classejeux::Piece::positionInitialeX = 5;
+    classejeux::Piece::positionInitialeX = 7;
     classejeux::Piece::positionInitialeY = 0;
     j1.ajouterPiece(std::make_shared<classejeux::Roi>(classejeux::Roi(jeu)));
-    classejeux::Piece::positionInitialeX = 5;
-    classejeux::Piece::positionInitialeY = 7;
+    classejeux::Piece::positionInitialeX = 4;
+    classejeux::Piece::positionInitialeY = 3;
     j2.ajouterPiece(std::make_shared<classejeux::Cavalier>(classejeux::Cavalier(jeu)));
-    classejeux::Piece::positionInitialeX = 3;
-    classejeux::Piece::positionInitialeY = 7;
+    classejeux::Piece::positionInitialeX = 1;
+    classejeux::Piece::positionInitialeY = 1;
     j2.ajouterPiece(std::make_shared<classejeux::Tour>(classejeux::Tour(jeu)));
     classejeux::Piece::positionInitialeX = 2;
     classejeux::Piece::positionInitialeY = 7;
@@ -210,6 +210,10 @@ void ProjetFinalEchec::mousePressEvent(QMouseEvent* event) {
                     tourJoueur->modifierPosition(x, y, caseCliquee->first, caseCliquee->second);
                     if (tourJoueur->roiEnEchec(jeu, *autreJoueur, x, y)) {
                         std::cout << "ECHEC !!!" << std::endl;
+                        
+                        if (tourJoueur->echecMat(jeu, *tourJoueur, *autreJoueur)) {
+                            std::cout << "GAME OVER" << std::endl;
+                        }
                         tourJoueur->modifierPosition(caseCliquee->first, caseCliquee->second, x, y);
                         couleurBoardNormal();
                         couleurBoardEchec();
