@@ -18,6 +18,10 @@
 #include <QGraphicsScene>
 #include <QButtonGroup>
 #include <QRadioButton>
+#include <QMessageBox>
+#include <QBoxLayout>
+
+
 
 // Question 1
 namespace interfacegraphique {
@@ -37,7 +41,8 @@ ProjetFinalEchec::ProjetFinalEchec(classejeux::Joueur& joueurUn, classejeux::Jou
 
 void ProjetFinalEchec::miseEnMenu() {
     QWidget* menu = new QWidget;
-    menu->setFixedSize(ig::tailleFenetre, ig::tailleFenetre);
+    QMainWindow::setFixedSize(400, 300);
+    menu->setFixedSize(400, 300);
     QPushButton* startButton = new QPushButton(menu);
     startButton->setText(tr("Appuyer pour démarrer la partie"));
     
@@ -45,13 +50,14 @@ void ProjetFinalEchec::miseEnMenu() {
     QVBoxLayout* buttons = new QVBoxLayout(menu);
     buttons->addWidget(startButton);
     QRadioButton* option1 = new QRadioButton(menu);
-    option1->setText(tr("Option 1"));
+    option1->setText(tr("Normal"));
+    startButton->setFixedHeight(50);
     buttons->addWidget(option1);
     QRadioButton* option2 = new QRadioButton(menu);
-    option2->setText(tr("Option 2"));
+    option2->setText(tr("Eparpillé"));
     buttons->addWidget(option2);
     QRadioButton* option3 = new QRadioButton(menu);
-    option3->setText(tr("Option 3"));
+    option3->setText(tr("Presque en echec"));
     buttons->addWidget(option3);
 
     connect(option1, SIGNAL(pressed()), this, SLOT(changeOption1()));
@@ -151,7 +157,7 @@ void ProjetFinalEchec::miseEnJeu() {
 
     option();
     jeuParti = true;
-
+    QMainWindow::setFixedSize(ig::tailleFenetre, ig::tailleFenetre);
     QWidget* prinFenetre = new QWidget;
     prinFenetre->setFixedSize(ig::tailleFenetre, ig::tailleFenetre);
     QGridLayout* gridLayout = new QGridLayout;
@@ -211,7 +217,6 @@ void ProjetFinalEchec::mousePressEvent(QMouseEvent* event) {
                     tourJoueur->modifierPosition(x, y, caseCliquee->first, caseCliquee->second);
                     if (tourJoueur->roiEnEchec(jeu, *autreJoueur, x, y)) {
                         std::cout << "ECHEC !!!" << std::endl;
-                        // fonction echec et mat
                         tourJoueur->modifierPosition(caseCliquee->first, caseCliquee->second, x, y);
                         couleurBoardNormal();
                         couleurBoardEchec();
@@ -295,6 +300,7 @@ void ProjetFinalEchec::mouseReleaseEvent(QMouseEvent* event) {
     if (!caseCliquee && jeuParti) {
         if (tourJoueur->echecMat(jeu, *autreJoueur)) {  // Joueur en début de tour (le tour vient de changer)
             std::cout << "GAME OVER" << std::endl;
+            stopJeu();
         }
     }
 
@@ -302,4 +308,34 @@ void ProjetFinalEchec::mouseReleaseEvent(QMouseEvent* event) {
 
 void ProjetFinalEchec::stopJeu() {
 
+    jeuParti = false;
+
+    for (auto&& p : j1.avoirPieces()) {
+        j1.retirerPiece(p);
+    }
+    for (auto&& p : j2.avoirPieces()) {
+        j2.retirerPiece(p);
+    }
+
+    QWidget* menu = new QWidget;
+    menu->setFixedSize(500, 200);
+    QMainWindow::setFixedSize(500, 200);
+
+    QVBoxLayout* centralBox = new QVBoxLayout(menu);
+
+    QLabel* finished = new QLabel(menu);
+    finished->setText(tr("!!!   Partie Terminé    !!!"));
+    finished->setAlignment(Qt::AlignCenter);
+    
+    centralBox->addWidget(finished);
+
+    QLabel* winner = new QLabel();
+    winner->setText(QString::fromStdString("GAGNANT    ::   ") + QString::fromStdString(autreJoueur->avoirNom()));
+    winner->setAlignment(Qt::AlignCenter);
+    winner->setStyleSheet(tr("QLabel { background-color : gray ;}"));
+    winner->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+
+    centralBox->addWidget(winner);
+
+    setCentralWidget(menu);
 }

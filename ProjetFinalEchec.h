@@ -32,7 +32,6 @@ public:
     void couleurBoardNormal();
     void couleurBoardEchec();
 
-    void miseEnMenu();
 
     void option1();
     void option2();
@@ -43,6 +42,8 @@ private slots:
     void miseEnJeu();
 
     void stopJeu();
+
+    void miseEnMenu();
 
     void changeOption1();
     void changeOption2();
